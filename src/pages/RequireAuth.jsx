@@ -10,17 +10,21 @@ const ROLE_DASHBOARD = {
 export default function RequireAuth({ allowedRoles, loginPath }) {
     const user = JSON.parse(localStorage.getItem("vss_user"));
 
-    // 🔴 Not logged in → redirect to login
-    if (!user) {
+    console.log("AUTH CHECK:", user, allowedRoles);
+
+    if (!user || !user.role) {
+        localStorage.removeItem("vss_user");
         return <Navigate to={loginPath} replace />;
     }
 
-    // 🔴 Logged in but wrong role → redirect to their own dashboard
     if (allowedRoles && !allowedRoles.includes(user.role)) {
-        const redirectPath = ROLE_DASHBOARD[user.role] || "/";
-        return <Navigate to={redirectPath} replace />;
+        return (
+            <Navigate
+                to={ROLE_DASHBOARD[user.role] || "/portal"}
+                replace
+            />
+        );
     }
 
-    // ✅ Allowed
     return <Outlet />;
 }

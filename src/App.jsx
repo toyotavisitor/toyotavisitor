@@ -27,6 +27,9 @@ import HodDashboard from "./pages/hod/Dashboard";
 import AdminLogin from "./pages/admin/Login";
 import AdminDashboard from "./pages/admin/Dashboard";
 
+import Profile from "./pages/Profile";
+
+
 export default function App() {
   return (
     <BrowserRouter>
@@ -34,6 +37,12 @@ export default function App() {
 
         {/* ================= VISITOR ================= */}
         <Route path="/visitor" element={<VisitorLayout />} />
+
+        {/* ================= PROFILE ================= */}
+
+        <Route path="/profile" element={<Profile />} /> {/* ✅ PUBLIC */}
+
+
 
 
         <Route path="/portal" element={<MainPortal />} />

@@ -39,6 +39,12 @@ const roles = [
         path: "/signup",
         color: "from-gray-600 to-gray-800",
     },
+    {
+        title: "My Profile",
+        desc: "View & edit your personal details",
+        path: "/profile",
+        color: "from-teal-500 to-cyan-600",
+    },
 ];
 
 export default function MainPortal() {

@@ -393,3 +393,18 @@ export async function updateSignupStatus(enabled) {
 }
 
 
+
+export async function updateMyProfile(payload) {
+    const res = await fetch(BASE_URL, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            action: "updateMyProfile",
+            ...payload,
+        }),
+    });
+
+    return res.json();
+}
