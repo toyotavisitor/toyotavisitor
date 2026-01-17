@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import safetyVideo from "../../assets/video/English.mp4";
 
 export default function SafetyVideo({ onNext }) {
-    const [seconds, setSeconds] = useState(296);
+    const [seconds, setSeconds] = useState(5);
     const videoRef = useRef(null);
 
     // Countdown timer
