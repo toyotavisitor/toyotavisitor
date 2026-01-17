@@ -1,6 +1,12 @@
 export default async function handler(req, res) {
-    const GAS_URL =
-        "https://script.google.com/macros/s/AKfycbyT5Ei52UVf0X_KgLAflKRir5qyfz1MkoY36pRCu1ay4hLa-sid7eThCGjE9Z6N3V19Rg/exec";
+    const GAS_URL = process.env.GAS_BACKEND_URL;
+
+    if (!GAS_URL) {
+        return res.status(500).json({
+            status: "ERROR",
+            message: "Backend not configured",
+        });
+    }
 
     try {
         const url =
