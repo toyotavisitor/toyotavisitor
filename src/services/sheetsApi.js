@@ -74,7 +74,7 @@ export async function signupUser(payload) {
 }
 
 export async function loginUser(payload) {
-    console.log("LOGIN API CALLED", payload);
+    console.log("LOGIN API CALLED (SAFE VERSION)", payload);
 
     const res = await fetch(BASE_URL, {
         method: "POST",
@@ -87,16 +87,23 @@ export async function loginUser(payload) {
         }),
     });
 
-    const contentType = res.headers.get("content-type");
+    const text = await res.text();
 
-    if (!contentType || !contentType.includes("application/json")) {
-        const text = await res.text();
-        console.error("API returned non-JSON response:", text.substring(0, 500));
-        throw new Error("API returned invalid response format. Status: " + res.status);
+    let data;
+    try {
+        data = JSON.parse(text);
+    } catch (err) {
+        console.error("❌ Backend returned invalid JSON:", text);
+        throw new Error("Backend returned invalid JSON. Status: " + res.status);
     }
 
-    return res.json();
+    if (data.status !== "OK") {
+        throw new Error(data.message || "Login failed");
+    }
+
+    return data;
 }
+
 
 /* =====================================================
    FORGOT PASSWORD (POST)
