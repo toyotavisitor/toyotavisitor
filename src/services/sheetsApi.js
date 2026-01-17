@@ -1,4 +1,5 @@
-const BASE_URL = "/api/exec";
+const BASE_URL =
+    import.meta.env.PROD ? "/api/proxy" : "/api/exec";
 /* =====================================================
    VISITOR (SAFE → GET)
 ===================================================== */
