@@ -1,7 +1,10 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { searchEmployees } from "../../services/sheetsApi";
 
 export default function VisitorForm({ onNext }) {
+    const navigate = useNavigate();
+
     const [form, setForm] = useState({
         name: "",
         phone: "",
@@ -40,6 +43,7 @@ export default function VisitorForm({ onNext }) {
 
     return (
         <div className="space-y-4">
+
             {/* Visitor Details */}
             <input
                 placeholder="Visitor Name"
@@ -58,7 +62,7 @@ export default function VisitorForm({ onNext }) {
             />
 
             <input
-                placeholder="Company"
+                placeholder="From Company"
                 className="w-full px-4 py-2 rounded-lg bg-black/40 border border-white/20"
                 onChange={(e) =>
                     setForm({ ...form, company: e.target.value })
@@ -68,7 +72,7 @@ export default function VisitorForm({ onNext }) {
             {/* Employee Search */}
             <div className="space-y-2">
                 <input
-                    placeholder="Employee ID or Username"
+                    placeholder="Employee ID or Username (to visit)"
                     value={empQuery}
                     className="w-full px-4 py-2 rounded-lg bg-black/40 border border-white/20"
                     onChange={(e) => setEmpQuery(e.target.value)}
@@ -97,10 +101,18 @@ export default function VisitorForm({ onNext }) {
                     <p className="text-sm font-semibold text-green-300">
                         Employee Verified
                     </p>
-                    <p className="text-sm">Name: {empResult.employee_name}</p>
-                    <p className="text-sm">Username: {empResult.username}</p>
-                    <p className="text-sm">Department: {empResult.department}</p>
-                    <p className="text-sm">Designation: {empResult.designation}</p>
+                    <p className="text-sm">
+                        Name: {empResult.employee_name}
+                    </p>
+                    <p className="text-sm">
+                        Username: {empResult.username}
+                    </p>
+                    <p className="text-sm">
+                        Department: {empResult.department}
+                    </p>
+                    <p className="text-sm">
+                        Designation: {empResult.designation}
+                    </p>
                 </div>
             )}
 
@@ -123,6 +135,16 @@ export default function VisitorForm({ onNext }) {
             >
                 Continue
             </button>
+
+            {/* Not a visitor */}
+            <button
+                type="button"
+                onClick={() => navigate("/portal")}
+                className="w-full py-2 rounded-xl border border-white/20 text-gray-300 hover:bg-white/10 transition text-sm"
+            >
+                Not a visitor? Login here
+            </button>
+
         </div>
     );
 }

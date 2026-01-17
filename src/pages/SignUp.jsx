@@ -164,13 +164,22 @@ export default function Signup() {
                 >
                     {loading ? "Creating account..." : "🔐 Sign Up"}
                 </button>
-
+                <div className="text-center mt-6">
+                    <a
+                        href="/portal"
+                        className="text-slate-400 hover:text-slate-300 smooth-transition text-sm flex items-center justify-center gap-2"
+                    >
+                        <span>←</span>
+                        Back to Home
+                    </a>
+                </div>
                 {message && (
                     <div className="text-center text-sm font-semibold">
                         {message}
                     </div>
                 )}
             </div>
+
         </div>
     );
 }

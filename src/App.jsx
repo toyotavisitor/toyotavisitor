@@ -1,8 +1,11 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import RequireAuth from "./pages/RequireAuth";
+import MainPortal from "./pages/MainPortal";
 
 /* ===== VISITOR ===== */
 import VisitorLayout from "./pages/visitor/VisitorLayout";
+
+
 
 /* ===== AUTH (GLOBAL) ===== */
 import Signup from "./pages/SignUp";
@@ -30,7 +33,11 @@ export default function App() {
       <Routes>
 
         {/* ================= VISITOR ================= */}
-        <Route path="/" element={<VisitorLayout />} />
+        <Route path="/visitor" element={<VisitorLayout />} />
+
+
+        <Route path="/portal" element={<MainPortal />} />
+        <Route path="/" element={<MainPortal />} />
 
         {/* ================= GLOBAL AUTH ================= */}
         <Route path="/signup" element={<Signup />} />
