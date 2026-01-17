@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import RequireAuth from "./pages/RequireAuth";
 
 /* ===== VISITOR ===== */
 import VisitorLayout from "./pages/visitor/VisitorLayout";
@@ -37,19 +38,55 @@ export default function App() {
 
         {/* ================= EMPLOYEE ================= */}
         <Route path="/employee/login" element={<EmployeeLogin />} />
-        <Route path="/employee" element={<EmployeePage />} />
+        <Route
+          element={
+            <RequireAuth
+              allowedRoles={["employee"]}
+              loginPath="/employee/login"
+            />
+          }
+        >
+          <Route path="/employee" element={<EmployeePage />} />
+        </Route>
 
         {/* ================= SECURITY ================= */}
         <Route path="/security/login" element={<SecurityLogin />} />
-        <Route path="/security" element={<Scanner />} />
+        <Route
+          element={
+            <RequireAuth
+              allowedRoles={["security"]}
+              loginPath="/security/login"
+            />
+          }
+        >
+          <Route path="/security" element={<Scanner />} />
+        </Route>
 
         {/* ================= HOD ================= */}
         <Route path="/hod/login" element={<HodLogin />} />
-        <Route path="/hod" element={<HodDashboard />} />
+        <Route
+          element={
+            <RequireAuth
+              allowedRoles={["hod"]}
+              loginPath="/hod/login"
+            />
+          }
+        >
+          <Route path="/hod" element={<HodDashboard />} />
+        </Route>
 
         {/* ================= ADMIN ================= */}
         <Route path="/admin/login" element={<AdminLogin />} />
-        <Route path="/admin" element={<AdminDashboard />} />
+        <Route
+          element={
+            <RequireAuth
+              allowedRoles={["admin"]}
+              loginPath="/admin/login"
+            />
+          }
+        >
+          <Route path="/admin" element={<AdminDashboard />} />
+        </Route>
 
         {/* ================= FALLBACK ================= */}
         <Route
@@ -65,13 +102,3 @@ export default function App() {
     </BrowserRouter>
   );
 }
-
-{/* ================= FALLBACK ================= */ }
-<Route
-  path="*"
-  element={
-    <div className="min-h-screen flex items-center justify-center bg-black text-red-400 font-bold">
-      404 – Page Not Found
-    </div>
-  }
-/>
