@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { loginUser } from "../../services/sheetsApi";
 import LoadingSpinner from "../../components/common/LoadingSpinner";
+import Navbar from "../../components/common/Navbar";
 
 export default function SecurityLogin() {
     const navigate = useNavigate();
@@ -53,7 +54,8 @@ export default function SecurityLogin() {
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-black flex items-center justify-center px-4 py-8">
+        <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-black flex items-center justify-center px-4 pt-24 pb-8">
+            <Navbar />
             {/* Animated background elements */}
             <div className="fixed inset-0 overflow-hidden pointer-events-none">
                 <div className="absolute top-0 left-0 w-72 h-72 bg-green-500/10 rounded-full blur-3xl animate-pulse"></div>

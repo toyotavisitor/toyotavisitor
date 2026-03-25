@@ -6,6 +6,7 @@ import {
     rejectVisitorByEmployee,
 } from "../../services/sheetsApi";
 import LoadingSpinner from "../../components/common/LoadingSpinner";
+import Navbar from "../../components/common/Navbar";
 
 export default function EmployeePage() {
     const navigate = useNavigate();
@@ -118,7 +119,8 @@ export default function EmployeePage() {
 
     /* ================= UI ================= */
     return (
-        <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-black px-4 py-8 text-white">
+        <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-black px-4 pt-24 pb-8 text-white">
+            <Navbar />
             {/* Animated background */}
             <div className="fixed inset-0 overflow-hidden pointer-events-none">
                 <div className="absolute top-0 left-0 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl"></div>

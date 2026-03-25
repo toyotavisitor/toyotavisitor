@@ -39,7 +39,7 @@ export async function validateEntry(payload) {
     return res.json();
 }
 
-export async function markSecurityVerified(visit_id) {
+export async function markSecurityVerified(visit_id, scanMode = "IN") {
     const res = await fetch(BASE_URL, {
         method: "POST",
         headers: {
@@ -48,6 +48,7 @@ export async function markSecurityVerified(visit_id) {
         body: JSON.stringify({
             action: "markSecurityVerified",
             visit_id,
+            scanMode,
         }),
     });
 

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { signupUser, getSignupStatus } from "../services/sheetsApi";
+import Navbar from "../components/common/Navbar";
 
 export default function Signup() {
     const [signupEnabled, setSignupEnabled] = useState(null);
@@ -86,7 +87,8 @@ export default function Signup() {
     /* ================= SIGNUP DISABLED ================= */
     if (!signupEnabled) {
         return (
-            <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-black via-slate-900 to-black text-white px-4">
+            <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-black via-slate-900 to-black text-white px-4 pt-24 pb-8">
+                <Navbar />
                 <div className="relative bg-gradient-to-br from-red-900/40 to-slate-900/40 border-2 border-red-500/60 rounded-2xl p-8 text-center max-w-md shadow-2xl backdrop-blur-xl">
                     <div className="text-6xl mb-4">🔒</div>
                     <h1 className="text-3xl font-bold text-red-400 mb-3">
@@ -105,7 +107,8 @@ export default function Signup() {
 
     /* ================= UI ================= */
     return (
-        <div className="min-h-screen bg-gradient-to-br from-black via-slate-900 to-black flex items-center justify-center px-4 text-white">
+        <div className="min-h-screen bg-gradient-to-br from-black via-slate-900 to-black flex items-center justify-center px-4 pt-24 pb-8 text-white">
+            <Navbar />
             <div className="relative w-full max-w-md bg-slate-900/80 border border-blue-500/30 rounded-2xl p-8 space-y-4 shadow-2xl backdrop-blur-xl fade-in">
                 <div className="text-center mb-6">
                     <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent mb-2">

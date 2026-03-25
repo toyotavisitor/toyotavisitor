@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getVisitorsForDepartment, getSignupStatus, updateSignupStatus } from "../../services/sheetsApi";
 import LoadingSpinner from "../../components/common/LoadingSpinner";
+import Navbar from "../../components/common/Navbar";
 
 export default function HodDashboard() {
     const user = JSON.parse(localStorage.getItem("vss_user"));
@@ -174,7 +175,8 @@ export default function HodDashboard() {
 
     /* ================= UI ================= */
     return (
-        <div className="min-h-screen bg-gradient-to-br from-black via-slate-900 to-black px-4 py-6 text-white">
+        <div className="min-h-screen bg-gradient-to-br from-black via-slate-900 to-black px-4 pt-24 pb-6 text-white">
+            <Navbar />
             {/* Animated background circles */}
             <div className="fixed inset-0 overflow-hidden pointer-events-none">
                 <div className="absolute top-0 left-0 w-72 h-72 bg-amber-500/10 rounded-full blur-3xl animate-pulse"></div>

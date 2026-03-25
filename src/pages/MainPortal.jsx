@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
+import Navbar from "../components/common/Navbar";
 
 const roles = [
     {
@@ -51,8 +52,8 @@ export default function MainPortal() {
     const navigate = useNavigate();
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-black text-white flex flex-col items-center justify-center px-4 py-10">
-
+        <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-black text-white flex flex-col items-center justify-center px-4 pt-24 pb-10">
+            <Navbar />
             {/* Header */}
             <motion.div
                 initial={{ opacity: 0, y: -20 }}

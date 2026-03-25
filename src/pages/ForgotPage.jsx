@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { sendForgotOtp, verifyForgotOtp, resetForgotPassword } from "../services/sheetsApi";
+import Navbar from "../components/common/Navbar";
 
 export default function ForgotPage() {
     const [step, setStep] = useState(1);
@@ -63,7 +64,8 @@ export default function ForgotPage() {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-black via-gray-900 to-black px-4">
+        <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-black via-gray-900 to-black px-4 pt-24 pb-8">
+            <Navbar />
             <div className="w-full max-w-md bg-slate-900/90 backdrop-blur border border-white/10 rounded-2xl p-6 space-y-5 shadow-xl">
 
                 {/* Header */}

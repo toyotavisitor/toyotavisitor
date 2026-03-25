@@ -6,12 +6,14 @@ import {
     markSecurityVerified,
 } from "../../services/sheetsApi";
 import LoadingSpinner from "../../components/common/LoadingSpinner";
+import Navbar from "../../components/common/Navbar";
 
 export default function Scanner() {
     /* ---------------- STATE ---------------- */
     const user = JSON.parse(localStorage.getItem("vss_user"));
     const navigate = useNavigate();
     const [visitorData, setVisitorData] = useState(null);
+    const [scanMode, setScanMode] = useState(null);
     const [statusColor, setStatusColor] = useState(null);
     const [message, setMessage] = useState("");
     const [loading, setLoading] = useState(false);
@@ -48,6 +50,7 @@ export default function Scanner() {
 
     /* ---------------- INIT CAMERA ---------------- */
     useEffect(() => {
+        if (!scanMode) return;
         if (!qrRef.current || qrInstanceRef.current) return;
 
         qrInstanceRef.current = new Html5Qrcode("qr-reader");
@@ -74,9 +77,11 @@ export default function Scanner() {
         return () => {
             if (qrInstanceRef.current && isCameraRunningRef.current) {
                 qrInstanceRef.current.stop().catch(() => { });
+                qrInstanceRef.current = null;
+                isCameraRunningRef.current = false;
             }
         };
-    }, []);
+    }, [scanMode]);
 
     /* ---------------- VERIFY ---------------- */
     const handleVerify = async (payload) => {
@@ -85,7 +90,7 @@ export default function Scanner() {
         setVisitorData(null);
 
         try {
-            const res = await validateEntry(payload);
+            const res = await validateEntry({ ...payload, scanMode });
 
             if (res.status === "OK") {
                 setVisitorData(res.visitor);
@@ -148,7 +153,7 @@ export default function Scanner() {
     const approveEntry = async () => {
         setActionLoading(true);
         try {
-            const res = await markSecurityVerified(visitorData.visit_id);
+            const res = await markSecurityVerified(visitorData.visit_id, scanMode);
 
             console.log("markSecurityVerified response:", res);
 
@@ -197,6 +202,7 @@ export default function Scanner() {
         setMessage("");
         setStatusColor(null);
         isProcessingRef.current = false;
+        setScanMode(null);
     };
 
     /* ---------------- UI COLORS ---------------- */
@@ -213,7 +219,8 @@ export default function Scanner() {
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-black via-slate-900 to-black flex items-center justify-center px-3 text-white">
+        <div className="min-h-screen bg-gradient-to-br from-black via-slate-900 to-black flex items-center justify-center px-3 pt-24 pb-8 text-white">
+            <Navbar />
             {/* Animated background circles */}
             <div className="fixed inset-0 overflow-hidden pointer-events-none">
                 <div className="absolute top-0 left-0 w-72 h-72 bg-green-500/10 rounded-full blur-3xl animate-pulse"></div>
@@ -241,9 +248,33 @@ export default function Scanner() {
                     </button>
                 </div>
 
-
-                {/* SCANNER */}
-                <div className="flex justify-center">
+                {!scanMode ? (
+                    <div className="flex flex-col gap-4 py-6">
+                        <h2 className="text-center text-slate-300 font-semibold mb-2">Select Scan Mode</h2>
+                        <button 
+                            onClick={() => setScanMode("IN")}
+                            className="w-full py-4 rounded-xl bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-bold smooth-transition shadow-lg hover:shadow-green-500/25 flex items-center justify-center gap-2 text-lg"
+                        >
+                            <span>📥</span> VISITOR IN
+                        </button>
+                        <button 
+                            onClick={() => setScanMode("OUT")}
+                            className="w-full py-4 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold smooth-transition shadow-lg hover:shadow-blue-500/25 flex items-center justify-center gap-2 text-lg"
+                        >
+                            <span>📤</span> VISITOR OUT
+                        </button>
+                    </div>
+                ) : (
+                    <>
+                        <div className="flex justify-between items-center bg-slate-800/50 p-2 rounded-lg border border-white/5 mb-4">
+                            <div className="flex items-center gap-2 font-bold text-sm">
+                                {scanMode === "IN" ? <span className="text-green-400">📥 MODE: IN</span> : <span className="text-blue-400">📤 MODE: OUT</span>}
+                            </div>
+                            <button onClick={resetScanner} className="text-xs text-slate-400 hover:text-white transition underline">Change</button>
+                        </div>
+                        
+                        {/* SCANNER */}
+                        <div className="flex justify-center">
                     <div className="relative">
                         <div
                             id="qr-reader"
@@ -375,6 +406,8 @@ export default function Scanner() {
                             </button>
                         )}
                     </div>
+                )}
+                </>
                 )}
             </div>
         </div>

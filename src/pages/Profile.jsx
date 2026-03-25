@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { loginUser, updateMyProfile } from "../services/sheetsApi";
+import Navbar from "../components/common/Navbar";
 
 export default function Profile() {
     const navigate = useNavigate();
@@ -74,7 +75,8 @@ export default function Profile() {
     /* ================= LOGIN VIEW ================= */
     if (step === "login") {
         return (
-            <div className="min-h-screen bg-black text-white flex items-center justify-center px-4">
+            <div className="min-h-screen bg-black text-white flex items-center justify-center px-4 pt-24 pb-8">
+                <Navbar />
                 <form
                     onSubmit={handleLogin}
                     className="bg-slate-900 p-6 rounded-xl w-full max-w-sm space-y-4"
@@ -129,7 +131,8 @@ export default function Profile() {
 
     if (step === "profile") {
         return (
-            <div className="min-h-screen bg-black text-white px-4 py-6">
+            <div className="min-h-screen bg-black text-white px-4 pt-24 pb-6">
+                <Navbar />
                 <div className="max-w-md mx-auto mb-6">
                     <h1 className="text-2xl font-bold">Edit Profile</h1>
                     <p className="text-gray-400 text-sm">
@@ -201,7 +204,8 @@ export default function Profile() {
 
     /* ================= SUCCESS VIEW ================= */
     return (
-        <div className="min-h-screen bg-black text-white flex items-center justify-center px-4">
+        <div className="min-h-screen bg-black text-white flex items-center justify-center px-4 pt-24 pb-8">
+            <Navbar />
             <div className="bg-slate-900 p-6 rounded-xl w-full max-w-sm text-center space-y-4">
                 <p className="text-green-400 font-semibold text-lg">
                     Profile updated successfully ✅
